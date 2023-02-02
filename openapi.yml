@@ -1,0 +1,75 @@
+openapi: 3.1.0
+
+info:
+  version: 0.0.1
+  title: This is a todo list
+
+paths:
+  /todo:
+    post:
+      description: Creates new item in todo list,
+      operationId: createTodoItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoItem'
+      responses:
+        200: 
+          description: OK!
+
+
+  /todo/{id}:
+    get:
+      description: Info Accepted
+      operationId: getTodoItem
+      parameters:
+        - $ref: '#/components/parameters/todoParams'
+
+      responses:
+        200:
+          description: OK!
+
+    put:
+      operationId: updateTodoItem
+      parameters:
+        - $ref: '#/components/parameters/todoParams'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoItem'
+              
+      responses:
+        200:
+          description: Updated!
+
+    delete:
+      operationId: deleteTodoItem
+      parameters:
+        - $ref: '#/components/parameters/todoParams'
+      responses:
+        200:
+          description: Todo item removed
+
+components:
+  schemas:
+    TodoItem:
+      type: object
+      properties:
+        name: 
+          type: string
+        description:
+          type: string
+        priority:
+          type: integer
+
+  parameters:
+    todoParams:
+      name: id
+      in: path
+      decription: info updated
+      required: true
+      schema:
+        type: integer
+
